@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,8 +35,7 @@ public abstract class PagedListGUI<T> extends MenuGUI {
         this.fillItem = fillItem;
         this.previousPageSlot = previousPageSlot;
         this.nextPageSlot = nextPageSlot;
-
-        this.items = createList();
+        this.items = Collections.emptyList();
     }
 
     @Override
@@ -51,6 +51,9 @@ public abstract class PagedListGUI<T> extends MenuGUI {
         int listIndexStart = totalPerPage * page;
 
         int columnFromWidth = getColumnFromWidth(width);
+
+        // Update the item list
+        this.items = createList();
 
         // The index of the items in the inventory, determined based on a simple map from width and height
         int invIndex = 9 * getRowFromHeight(height) + columnFromWidth;
