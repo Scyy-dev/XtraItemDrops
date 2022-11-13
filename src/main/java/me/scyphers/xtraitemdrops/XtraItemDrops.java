@@ -1,4 +1,9 @@
 package me.scyphers.xtraitemdrops;
 
-public class XtraItemDrops {
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class XtraItemDrops extends JavaPlugin {
+
+
+
 }
