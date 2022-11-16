@@ -13,8 +13,8 @@ public abstract class MenuGUI extends InventoryGUI {
 
     private final int backSlot, exitSlot;
 
-    public MenuGUI(@NotNull Plugin plugin, @NotNull Player player, UUID intendedViewer, @NotNull String name, int size) {
-        super(plugin, player, intendedViewer, name, size);
+    public MenuGUI(@NotNull Plugin plugin, @NotNull Player player, UUID viewer, @NotNull String name, int size) {
+        super(plugin, player, viewer, name, size);
 
         this.backSlot = size - 9;
         this.exitSlot = size - 1;

@@ -25,10 +25,14 @@ public abstract class PagedListGUI<T> extends MenuGUI {
 
     private final int previousPageSlot, nextPageSlot;
 
-    public PagedListGUI(@NotNull Plugin plugin, @NotNull Player player, UUID intendedViewer,
+    public PagedListGUI(@NotNull Plugin plugin, @NotNull Player player, @NotNull UUID viewer, @NotNull String name) {
+        this(plugin, player, viewer, name, 54, 4, 7, BACKGROUND, 47, 51);
+    }
+
+    public PagedListGUI(@NotNull Plugin plugin, @NotNull Player player, UUID viewer,
                         @NotNull String name, int size, @Range(from = 1, to = 4) int height,
                         @Range(from = 1, to = 7) int width, ItemStack fillItem, int previousPageSlot, int nextPageSlot) {
-        super(plugin, player, intendedViewer, name, size);
+        super(plugin, player, viewer, name, size);
         this.height = height;
         this.width = width;
         this.totalPerPage = height * width;
@@ -53,7 +57,7 @@ public abstract class PagedListGUI<T> extends MenuGUI {
         int columnFromWidth = getColumnFromWidth(width);
 
         // Update the item list
-        this.items = createList();
+        this.items = getList();
 
         // The index of the items in the inventory, determined based on a simple map from width and height
         int invIndex = 9 * getRowFromHeight(height) + columnFromWidth;
@@ -113,7 +117,7 @@ public abstract class PagedListGUI<T> extends MenuGUI {
         return this.handleGenericInteraction(slot, type);
     }
 
-    public abstract @NotNull List<T> createList();
+    public abstract @NotNull List<T> getList();
 
     public abstract @NotNull ItemStack display(T item);
 
