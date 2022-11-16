@@ -18,7 +18,10 @@ public abstract class MenuGUI extends InventoryGUI {
 
         this.backSlot = size - 9;
         this.exitSlot = size - 1;
+    }
 
+    @Override
+    public void draw() {
         this.fill(BACKGROUND);
         setItem(backSlot, new ItemBuilder(Material.BARRIER).name("<red>Back</red>").build());
         setItem(exitSlot, new ItemBuilder(Material.IRON_DOOR).name("<red>Exit</red>").build());

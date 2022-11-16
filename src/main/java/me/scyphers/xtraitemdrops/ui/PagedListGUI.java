@@ -45,8 +45,7 @@ public abstract class PagedListGUI<T> extends MenuGUI {
     @Override
     public void draw() {
 
-        // Fill with all the items
-        this.fill(fillItem);
+        super.draw();
 
         ItemStack[] inventoryItems = this.getInventory().getContents();
 

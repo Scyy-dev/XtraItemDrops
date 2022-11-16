@@ -21,6 +21,7 @@ public class HomeGUI extends MenuGUI {
 
     @Override
     public void draw() {
+        super.draw();
         setItem(29, new ItemBuilder(Material.CREEPER_HEAD).name("<dark_purple>Entities</dark_purple>").build());
         setItem(33, new ItemBuilder(Material.GRASS_BLOCK).name("<dark_purple>Blocks</dark_purple>").build());
     }
