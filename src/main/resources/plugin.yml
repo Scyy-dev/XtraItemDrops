@@ -1,0 +1,11 @@
+name: XtraItemDrops
+main: me.scyphers.xtraitemdrops
+version: 0.1
+author: Scyphers
+api-version: 1.19
+commands:
+  drops:
+    aliases:
+      - "xid"
+      - "xtraitemdrops"
+    description: "Admin command for managing all custom drops"
