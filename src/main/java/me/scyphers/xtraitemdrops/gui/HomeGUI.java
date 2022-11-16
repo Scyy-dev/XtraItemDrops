@@ -27,8 +27,11 @@ public class HomeGUI extends MenuGUI {
 
     @Override
     public GUI<?> onClick(int slot, ClickType type) {
-        // TODO - add paged GUIs for drops
-        return null;
+        return switch (slot) {
+            case 29 -> new EntityDropSourceList(getPlugin(), getPlayer(), getViewer());
+            case 33 -> new BlockDropSourceList(getPlugin(), getPlayer(), getViewer());
+            default -> this;
+        };
     }
 
     @Override
