@@ -1,5 +1,5 @@
 name: XtraItemDrops
-main: me.scyphers.xtraitemdrops
+main: me.scyphers.xtraitemdrops.XtraItemDrops
 version: 0.1
 author: Scyphers
 api-version: 1.19
