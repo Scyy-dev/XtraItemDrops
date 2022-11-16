@@ -56,11 +56,12 @@ public abstract class SubCommandMap<T extends Plugin> implements TabExecutor {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission(permission)) return Collections.emptyList();
-        if (args.length == 0) return commands.keySet().stream()
+        if (args.length == 1) return commands.keySet().stream()
                 .filter(s -> sender.hasPermission(permission + "." + s))
                 .collect(Collectors.toList());
 
-        List<String> producedArgs = commands.getOrDefault(args[0].toLowerCase(Locale.ROOT), EmptyExecutor.INSTANCE).onTabComplete(sender, args);
+        String[] subCommandArgs = SubCommand.subCommandArgs(args);
+        List<String> producedArgs = commands.getOrDefault(args[0].toLowerCase(Locale.ROOT), EmptyExecutor.INSTANCE).onTabComplete(sender, subCommandArgs);
         if (producedArgs == null) return Collections.emptyList();
         String currentArg = args[args.length - 1];
         return producedArgs.stream().filter(s -> s.contains(currentArg)).collect(Collectors.toList());

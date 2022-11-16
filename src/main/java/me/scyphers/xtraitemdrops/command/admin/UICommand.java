@@ -35,9 +35,12 @@ public class UICommand implements SubCommand {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull String[] args) {
 
+        plugin.getLogger().info("running UI command");
+
         String gui = args[0].toLowerCase(Locale.ROOT);
         if (!guiConsumers.containsKey(gui)) {
             // TODO - send a gui not found message
+            sender.sendMessage("gui not found");
             return true;
         }
 
@@ -45,18 +48,20 @@ public class UICommand implements SubCommand {
         Player player = plugin.getServer().getPlayer(playerName);
         if (player == null) {
             // TODO - send a player not found message
+            sender.sendMessage("could not find player");
             return true;
         }
 
         String viewerName = args[2];
-        plugin.getQueue().addPlayerTask(viewerName, (xtraItemDrops, viewer) -> tryOpenGUI(gui, player, viewer));
+        plugin.getQueue().addPlayerTask(viewerName, (xtraItemDrops, viewer) -> tryOpenGUI(sender, gui, player, viewer));
         return true;
     }
 
-    private void tryOpenGUI(String gui, Player player, OfflinePlayer viewer) {
+    private void tryOpenGUI(CommandSender sender, String gui, Player player, OfflinePlayer viewer) {
 
-        if (!viewer.hasPlayedBefore() && !viewer.isOnline()) {
+        if (!viewer.hasPlayedBefore() || !viewer.isOnline()) {
             // TODO - send a player not found message
+            sender.sendMessage("could not find viewer");
             return;
         }
 
@@ -68,6 +73,7 @@ public class UICommand implements SubCommand {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
         return switch (args.length) {
+            case 1 -> new ArrayList<>(guiConsumers.keySet());
             case 2, 3 -> getOnlinePlayerNames(plugin);
             default -> Collections.emptyList();
         };
