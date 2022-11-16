@@ -26,9 +26,9 @@ public class UICommand implements SubCommand {
 
     private Map<String, BiConsumer<Player, UUID>> initConsumers() {
         return Map.of(
-                "home", ((player, uuid) -> new HomeGUI(plugin, player, uuid)),
-                "blocks", ((player, uuid) -> new BlockDropSourceList(plugin, player, uuid)),
-                "entities", ((player, uuid) -> new EntityDropSourceList(plugin, player, uuid))
+                "home", ((player, uuid) -> new HomeGUI(plugin, player, uuid).open()),
+                "blocks", ((player, uuid) -> new BlockDropSourceList(plugin, player, uuid).open()),
+                "entities", ((player, uuid) -> new EntityDropSourceList(plugin, player, uuid).open())
         );
     }
 
