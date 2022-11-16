@@ -29,7 +29,7 @@ public interface SubCommand extends TabExecutor {
     List<String> onTabComplete(@NotNull CommandSender sender, @NotNull String[] args);
 
     static String[] subCommandArgs(String[] args) {
-        return Arrays.copyOfRange(args, 1, args.length);
+        return args.length > 1 ? Arrays.copyOfRange(args, 1, args.length) : new String[0];
     }
 
     default List<String> getOnlinePlayerNames(Plugin plugin) {

@@ -35,7 +35,11 @@ public class UICommand implements SubCommand {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull String[] args) {
 
-        plugin.getLogger().info("running UI command");
+        if (args.length < 3) {
+            // TODO - send a invalid command length message
+            sender.sendMessage("invalid command length");
+            return true;
+        }
 
         String gui = args[0].toLowerCase(Locale.ROOT);
         if (!guiConsumers.containsKey(gui)) {
