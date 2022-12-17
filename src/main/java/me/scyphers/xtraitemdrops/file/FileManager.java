@@ -33,7 +33,7 @@ public class FileManager {
         settingsFile.load();
     }
 
-    public void reloadConfigs() {
+    public void reloadFiles() {
         messengerFile.load();
         settingsFile.load();
     }
