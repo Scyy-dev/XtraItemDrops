@@ -3,22 +3,19 @@ package me.scyphers.xtraitemdrops.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public abstract class SubCommandMap<T extends Plugin> implements TabExecutor {
+public abstract class SubCommandMap implements TabExecutor {
 
     private final Map<String, SubCommand> commands = new HashMap<>();
 
-    private final T plugin;
     private final String permission;
 
-    public SubCommandMap(T plugin, String permission) {
-        this.plugin = plugin;
+    public SubCommandMap(String permission) {
         this.permission = permission;
     }
 
@@ -63,8 +60,10 @@ public abstract class SubCommandMap<T extends Plugin> implements TabExecutor {
         String[] subCommandArgs = SubCommand.subCommandArgs(args);
         List<String> producedArgs = commands.getOrDefault(args[0].toLowerCase(Locale.ROOT), EmptyExecutor.INSTANCE).onTabComplete(sender, subCommandArgs);
         if (producedArgs == null) return Collections.emptyList();
-        String currentArg = args[args.length - 1];
-        return producedArgs.stream().filter(s -> s.contains(currentArg)).collect(Collectors.toList());
+        String currentArg = args[args.length - 1].toLowerCase(Locale.ROOT);
+        return producedArgs.stream()
+                .filter(s -> s.toLowerCase(Locale.ROOT).contains(currentArg))
+                .collect(Collectors.toList());
     }
 
     public void addSubcommand(String commandName, SubCommand subcommand) {
@@ -73,12 +72,20 @@ public abstract class SubCommandMap<T extends Plugin> implements TabExecutor {
         commands.put(formattedName, subcommand);
     }
 
-    public T getPlugin() {
-        return plugin;
+    public void removeSubcommand(String commandName) {
+        commands.remove(commandName);
+    }
+
+    public Set<String> getCommands() {
+        return Collections.unmodifiableSet(commands.keySet());
     }
 
     public SubCommand getCommand(String command) {
         return commands.get(command);
+    }
+
+    public String getPermission() {
+        return permission;
     }
 
     private static final class EmptyExecutor implements SubCommand {

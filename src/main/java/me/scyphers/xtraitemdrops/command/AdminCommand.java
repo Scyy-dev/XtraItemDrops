@@ -9,10 +9,14 @@ import org.bukkit.entity.Player;
 
 import java.util.Objects;
 
-public class AdminCommand extends SubCommandMap<XtraItemDrops> {
+public class AdminCommand extends SubCommandMap {
+
+    private final XtraItemDrops plugin;
 
     public AdminCommand(XtraItemDrops plugin) {
-        super(plugin, "xtraitemdrops.commands.admin");
+        super("xtraitemdrops.commands.admin");
+        this.plugin = plugin;
+
         addSubcommand("open", new UICommand(plugin));
         addSubcommand("reload", new ReloadCommand(plugin));
 
@@ -23,22 +27,19 @@ public class AdminCommand extends SubCommandMap<XtraItemDrops> {
 
     @Override
     public void sendNoPermission(CommandSender sender) {
-        // TODO - messaging system
-        sender.sendMessage("no permission");
+        plugin.getMessenger().chat(sender, "errorMessages.noPermission");
     }
 
     @Override
     public void sendUnknownCommand(CommandSender sender) {
-        // TODO - messaging system
-        sender.sendMessage("unknown command");
+        plugin.getMessenger().chat(sender, "errorMessages.unknownCommand");
     }
 
     @Override
     public boolean onNoArgCommand(CommandSender sender) {
 
         if (!(sender instanceof Player player)) {
-            // TODO - messaging system
-            sender.sendMessage("must be player");
+            plugin.getMessenger().chat(sender, "errorMessages.mustBePlayer");
             return true;
         }
 
