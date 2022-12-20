@@ -1,6 +1,7 @@
 package me.scyphers.xtraitemdrops.command;
 
 import me.scyphers.xtraitemdrops.XtraItemDrops;
+import me.scyphers.xtraitemdrops.command.admin.HelpCommand;
 import me.scyphers.xtraitemdrops.command.admin.ReloadCommand;
 import me.scyphers.xtraitemdrops.command.admin.UICommand;
 import org.bukkit.command.CommandSender;
@@ -18,6 +19,7 @@ public class AdminCommand extends SubCommandMap {
         this.plugin = plugin;
 
         addSubcommand("open", new UICommand(plugin));
+        addSubcommand("help", new HelpCommand(this, plugin));
         addSubcommand("reload", new ReloadCommand(plugin));
 
         PluginCommand command = Objects.requireNonNull(plugin.getCommand("drops"));

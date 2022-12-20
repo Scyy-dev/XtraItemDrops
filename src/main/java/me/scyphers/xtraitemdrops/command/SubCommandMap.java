@@ -80,6 +80,10 @@ public abstract class SubCommandMap implements TabExecutor {
         return Collections.unmodifiableSet(commands.keySet());
     }
 
+    public boolean hasCommand(String command) {
+        return commands.containsKey(command);
+    }
+
     public SubCommand getCommand(String command) {
         return commands.get(command);
     }
